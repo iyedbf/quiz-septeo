@@ -68,7 +68,7 @@ export default function AdminPage() {
     <div className="page-center gradient-bg">
       <div className="admin-container">
         <div className="admin-header">
-          <button className="back-btn" onClick={() => navigate('/')}>← Retour</button>
+          <button className="back-btn" onClick={() => navigate('/home')}>← Retour</button>
           <h1 className="admin-title">👑 Salle Admin</h1>
           <p className="admin-subtitle">Partagez le code ou QR Code avec vos joueurs</p>
         </div>

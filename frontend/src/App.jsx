@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import SplashPage from './pages/SplashPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
 import JoinPage from './pages/JoinPage.jsx';
@@ -63,7 +64,8 @@ function AppContent() {
   return (
     <GameContext.Provider value={{ gameState, setGameState }}>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<SplashPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/join" element={<JoinPage />} />
         <Route path="/waiting" element={<WaitingRoom />} />

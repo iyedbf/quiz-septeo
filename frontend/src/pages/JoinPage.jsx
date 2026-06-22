@@ -51,7 +51,7 @@ export default function JoinPage() {
   return (
     <div className="page-center gradient-bg">
       <div className="join-container">
-        <button className="back-btn" onClick={() => navigate('/')}>← Retour</button>
+        <button className="back-btn" onClick={() => navigate('/home')}>← Retour</button>
 
         <div className="join-header">
           <h1>🎮 Rejoindre une Room</h1>

@@ -7,20 +7,16 @@ export default function SplashPage() {
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('visible'), 100);
-    const t2 = setTimeout(() => setPhase('exit'), 3800);
-    const t3 = setTimeout(() => navigate('/home'), 4400);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, [navigate]);
+    return () => clearTimeout(t1);
+  }, []);
+
+  const handleEnter = () => {
+    setPhase('exit');
+    setTimeout(() => navigate('/home'), 500);
+  };
 
   return (
     <div className={`splash-page ${phase}`}>
-      <div className="splash-bg-orbs">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
-        <div className="orb orb-4" />
-      </div>
-
       <div className="splash-content">
         <div className="splash-logo-wrap">
           <div className="splash-logo-ring" />
@@ -47,9 +43,9 @@ export default function SplashPage() {
           </h1>
         </div>
 
-        <div className="splash-dots">
-          <span /><span /><span />
-        </div>
+        <button className="splash-enter-btn" onClick={handleEnter}>
+          Commencer l'aventure →
+        </button>
       </div>
     </div>
   );

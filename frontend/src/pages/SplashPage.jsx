@@ -1,14 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const PHOTOS = [
-  { src: '/photos/IMG_0065_20250710_212145.jpg',     rotate: -8,  top: '4%',  left: '1%',   delay: 0.1 },
-  { src: '/photos/IMG_0070_20250710_212450 1.jpg',   rotate:  6,  top: '2%',  right: '2%',  delay: 0.25 },
-  { src: '/photos/DSC_2182 2.jpg',                   rotate: -4,  top: '38%', left: '0%',   delay: 0.4 },
-  { src: '/photos/DSC_2369 1.jpg',                   rotate:  5,  top: '35%', right: '0%',  delay: 0.55 },
-  { src: '/photos/IMG_0137_20250710_221804 1.jpg',   rotate: -6,  bottom: '3%', left: '2%', delay: 0.7 },
-  { src: '/photos/IMG_0233_20250710_235931 1.jpg',   rotate:  7,  bottom: '2%', right: '1%', delay: 0.85 },
+const LEFT_PHOTOS = [
+  { src: '/photos/IMG_0065_20250710_212145.jpg',   rotate: -7, tx:  18, delay: 0.15 },
+  { src: '/photos/DSC_2182 2.jpg',                 rotate:  4, tx: -12, delay: 0.30 },
+  { src: '/photos/IMG_0137_20250710_221804 1.jpg', rotate: -5, tx:  10, delay: 0.45 },
 ];
+const RIGHT_PHOTOS = [
+  { src: '/photos/IMG_0070_20250710_212450 1.jpg', rotate:  6, tx: -16, delay: 0.20 },
+  { src: '/photos/DSC_2369 1.jpg',                 rotate: -3, tx:  12, delay: 0.35 },
+  { src: '/photos/IMG_0233_20250710_235931 1.jpg', rotate:  5, tx:  -8, delay: 0.50 },
+];
+
+function PhotoStrip({ photos, side }) {
+  return (
+    <div className={`photo-strip ${side}-strip`}>
+      {photos.map((p, i) => (
+        <div
+          key={i}
+          className="polaroid"
+          style={{
+            '--rotate': `${p.rotate}deg`,
+            '--tx': `${p.tx}px`,
+            '--delay': `${p.delay}s`,
+            '--side': side === 'left' ? '-1' : '1',
+          }}
+        >
+          <img src={p.src} alt={`souvenir ${i + 1}`} loading="lazy" />
+          <div className="polaroid-footer" />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function SplashPage() {
   const navigate = useNavigate();
@@ -26,23 +50,7 @@ export default function SplashPage() {
 
   return (
     <div className={`splash-page ${phase}`}>
-      {PHOTOS.map((p, i) => (
-        <div
-          key={i}
-          className="polaroid"
-          style={{
-            top: p.top,
-            left: p.left,
-            right: p.right,
-            bottom: p.bottom,
-            '--rotate': `${p.rotate}deg`,
-            '--delay': `${p.delay}s`,
-            '--float-dir': i % 2 === 0 ? '1' : '-1',
-          }}
-        >
-          <img src={p.src} alt={`photo ${i + 1}`} loading="lazy" />
-        </div>
-      ))}
+      <PhotoStrip photos={LEFT_PHOTOS} side="left" />
 
       <div className="splash-content">
         <div className="splash-logo-wrap">
@@ -70,6 +78,8 @@ export default function SplashPage() {
           Commencer l'aventure →
         </button>
       </div>
+
+      <PhotoStrip photos={RIGHT_PHOTOS} side="right" />
     </div>
   );
 }

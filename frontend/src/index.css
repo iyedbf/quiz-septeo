@@ -910,9 +910,12 @@ html, body, #root {
   position: fixed;
   inset: 0;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 28px;
   overflow: hidden;
+  padding: 24px;
   background:
     radial-gradient(ellipse at 15% 80%, rgba(126,206,219,0.6) 0%, transparent 50%),
     radial-gradient(ellipse at 85% 20%, rgba(255,91,39,0.28) 0%, transparent 45%),
@@ -931,18 +934,20 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   z-index: 5;
   position: relative;
+  flex-shrink: 0;
   animation: splashFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-  background: rgba(238,240,248,0.7);
-  backdrop-filter: blur(12px);
+  background: rgba(238,240,248,0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 28px;
-  padding: 36px 48px;
-  border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-  max-width: 420px;
-  width: 90%;
+  padding: 32px 44px;
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.6) inset;
+  width: 380px;
+  max-width: 90vw;
 }
 @keyframes splashFadeUp {
   from { opacity: 0; transform: translateY(40px); }
@@ -1044,40 +1049,72 @@ html, body, #root {
   100% { background-position: 200% center; }
 }
 
-/* ─── Polaroid photos ─────────────────────────────────────────── */
+/* ─── Photo strips ──────────────────────────────────────────────── */
+.photo-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.photo-strip .polaroid + .polaroid {
+  margin-top: -72px;
+}
+@media (max-width: 760px) {
+  .photo-strip { display: none; }
+}
+
+/* ─── Polaroid frames ──────────────────────────────────────────── */
 .polaroid {
-  position: absolute;
-  width: clamp(190px, 22vw, 300px);
-  background: white;
-  padding: 10px 10px 36px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 3px;
-  transform: rotate(var(--rotate)) translateY(0px);
-  animation:
-    polaroidIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both,
-    polaroidFloat 4s ease-in-out calc(var(--delay) + 0.7s) infinite alternate;
-  z-index: 0;
-  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  width: clamp(170px, 19vw, 245px);
+  background: #fefefe;
+  padding: 10px 10px 48px;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.06),
+    0 4px 12px rgba(0,0,0,0.10),
+    0 16px 40px rgba(0,0,0,0.08),
+    0 40px 80px rgba(0,0,0,0.04);
+  border-radius: 2px;
+  transform: translateX(var(--tx)) rotate(var(--rotate));
+  animation: polaroidEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s;
+  will-change: transform;
 }
 .polaroid:hover {
-  transform: rotate(0deg) scale(1.06) translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-  z-index: 10;
+  transform: translateX(var(--tx)) rotate(0deg) scale(1.09) translateY(-14px) !important;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.06),
+    0 12px 30px rgba(0,0,0,0.14),
+    0 40px 80px rgba(0,0,0,0.12),
+    0 0 0 1.5px rgba(255,91,39,0.18);
+  z-index: 20;
 }
 .polaroid img {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 3/2;
   object-fit: cover;
   display: block;
   border-radius: 1px;
 }
-@keyframes polaroidIn {
-  from { opacity: 0; transform: rotate(var(--rotate)) scale(0.6) translateY(30px); }
-  to   { opacity: 1; transform: rotate(var(--rotate)) scale(1) translateY(0px); }
+.polaroid-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,91,39,0.6) 50%, transparent 100%);
 }
-@keyframes polaroidFloat {
-  from { transform: rotate(var(--rotate)) translateY(0px); }
-  to   { transform: rotate(var(--rotate)) translateY(calc(var(--float-dir) * 12px)); }
+@keyframes polaroidEnter {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--side) * -180px)) rotate(calc(var(--rotate) * 2.5)) scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(var(--tx)) rotate(var(--rotate)) scale(1);
+  }
 }
 
 .splash-enter-btn {

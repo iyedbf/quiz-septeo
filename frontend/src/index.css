@@ -1002,34 +1002,23 @@ html, body, #root {
   50% { transform: scale(1.06); opacity: 1; }
 }
 
-.splash-logo-text {
-  display: flex;
-  align-items: baseline;
-  animation: logoReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+.splash-logo-img {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.95);
+  padding: 20px 24px;
+  box-shadow: 0 0 60px rgba(255,91,39,0.3), 0 20px 60px rgba(0,0,0,0.3);
+  animation: logoReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both, glowPulse 3s ease-in-out 1.6s infinite;
 }
 @keyframes logoReveal {
   from { opacity: 0; transform: scale(0.7); }
   to { opacity: 1; transform: scale(1); }
 }
-
-.splash-s {
-  font-size: 5rem;
-  font-weight: 900;
-  color: #FF5B27;
-  line-height: 1;
-  text-shadow: 0 0 40px rgba(255, 91, 39, 0.6), 0 0 80px rgba(255, 91, 39, 0.3);
-  animation: glowPulse 2s ease-in-out infinite;
-}
-.splash-epteo {
-  font-size: 3.2rem;
-  font-weight: 900;
-  color: #ffffff;
-  line-height: 1;
-  letter-spacing: 4px;
-}
 @keyframes glowPulse {
-  0%, 100% { text-shadow: 0 0 40px rgba(255,91,39,0.6), 0 0 80px rgba(255,91,39,0.3); }
-  50% { text-shadow: 0 0 60px rgba(255,91,39,0.9), 0 0 120px rgba(255,91,39,0.5); }
+  0%, 100% { box-shadow: 0 0 40px rgba(255,91,39,0.3), 0 20px 60px rgba(0,0,0,0.3); }
+  50% { box-shadow: 0 0 80px rgba(255,91,39,0.6), 0 20px 80px rgba(0,0,0,0.4); }
 }
 
 .splash-divider {

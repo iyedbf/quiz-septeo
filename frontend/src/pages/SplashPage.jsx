@@ -25,10 +25,11 @@ export default function SplashPage() {
         <div className="splash-logo-wrap">
           <div className="splash-logo-ring" />
           <div className="splash-logo-ring ring-2" />
-          <div className="splash-logo-text">
-            <span className="splash-s">S</span>
-            <span className="splash-epteo">EPTEO</span>
-          </div>
+          <img
+            src="/septeo-logo.png"
+            alt="Septeo Tunisia"
+            className="splash-logo-img"
+          />
         </div>
 
         <div className="splash-divider">

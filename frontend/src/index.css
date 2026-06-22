@@ -1047,9 +1047,9 @@ html, body, #root {
 /* ─── Polaroid photos ─────────────────────────────────────────── */
 .polaroid {
   position: absolute;
-  width: clamp(140px, 16vw, 220px);
+  width: clamp(190px, 22vw, 300px);
   background: white;
-  padding: 8px 8px 28px;
+  padding: 10px 10px 36px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
   border-radius: 3px;
   transform: rotate(var(--rotate)) translateY(0px);

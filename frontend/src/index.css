@@ -1001,6 +1001,85 @@ html, body, #root {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* ─── PROJECTEUR (SPOTLIGHT) ────────────────────────────────────── */
+.splash-spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.splash-spotlight::before {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 720px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,200,90,0.09) 0%, rgba(255,180,60,0.04) 40%, transparent 70%);
+  top: 50%;
+  transform: translateY(-50%);
+  left: -260px;
+  animation: spotSweep 9s ease-in-out infinite alternate;
+}
+@keyframes spotSweep {
+  from { left: -200px; opacity: 0.6; }
+  to   { left: calc(100% - 320px); opacity: 1; }
+}
+
+/* ─── ÉTINCELLES (SPARKLES) ──────────────────────────────────────── */
+.sparkles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.sparkle-star {
+  position: absolute;
+  opacity: 0;
+  animation: sparklePop var(--duration) ease-in-out var(--delay) infinite;
+  user-select: none;
+  line-height: 1;
+}
+@keyframes sparklePop {
+  0%, 100%    { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  40%, 60%    { opacity: 0.75; transform: scale(1) rotate(180deg); }
+}
+
+/* ─── EXPLOSION DE CONFETTIS (BURST) ─────────────────────────────── */
+.burst-particle {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  z-index: 50;
+  animation: burstFly 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes burstFly {
+  0%   { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+  55%  { opacity: 1; }
+  100% {
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+/* ─── LÉGENDES POLAROID ──────────────────────────────────────────── */
+.polaroid-caption {
+  position: absolute;
+  bottom: 9px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.36);
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  user-select: none;
+}
+
 /* ─── SPLASH PAGE ─────────────────────────────────────────────── */
 .splash-page {
   position: fixed;

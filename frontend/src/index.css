@@ -2,35 +2,57 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --orange: #FF5B27;
-  --orange-dark: #e04a1a;
-  --purple: #7C3AED;
-  --teal: #7ECEDB;
-  --navy: #1A1A2E;
+  --j-cream:    #F5E8C0;
+  --j-brown:    #8B5A1A;
+  --j-brown-dk: #5C3610;
+  --j-gold:     #D4A843;
+  --j-green:    #5A8A2A;
+  --j-dark:     #3D2A1A;
+  --j-parch:    rgba(255,250,232,0.90);
+  --j-border:   rgba(139,90,26,0.28);
+  --j-shadow:   0 8px 32px rgba(80,40,5,0.14);
+  --j-shadow-lg:0 20px 60px rgba(80,40,5,0.22);
+  /* legacy kept for compatibility */
+  --orange: #C47A20;
+  --orange-dark: #8B5A1A;
+  --navy: #3D2A1A;
   --white: #ffffff;
-  --gray-light: #f4f4f8;
-  --gray: #9ca3af;
+  --gray-light: #F5EDD0;
+  --gray: #9C8060;
   --radius: 20px;
-  --shadow: 0 8px 32px rgba(26,26,46,0.12);
-  --shadow-lg: 0 20px 60px rgba(26,26,46,0.2);
+  --shadow: var(--j-shadow);
+  --shadow-lg: var(--j-shadow-lg);
 }
 
 html, body, #root {
   height: 100%;
   font-family: 'Poppins', sans-serif;
-  color: var(--navy);
+  color: var(--j-dark);
   overflow-x: hidden;
 }
 
-/* ─── Gradient Background ──────────────────────────────────────── */
+/* ─── Jungle Background (toutes les pages sauf splash) ─────────── */
+.jungle-bg {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 10% 95%, rgba(80,160,60,0.28) 0%, transparent 42%),
+    radial-gradient(ellipse at 90% 95%, rgba(60,140,50,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 3%,  rgba(255,220,90,0.22) 0%, transparent 42%),
+    radial-gradient(ellipse at 80% 8%,  rgba(255,180,50,0.18) 0%, transparent 38%),
+    radial-gradient(ellipse at 20% 50%, rgba(200,220,100,0.10) 0%, transparent 50%),
+    #F5E8C0;
+  background-attachment: fixed;
+}
+
+/* ─── Gradient Background (legacy alias) ──────────────────────── */
 .gradient-bg {
   min-height: 100vh;
   background:
-    radial-gradient(ellipse at 15% 80%, rgba(126,206,219,0.55) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 20%, rgba(255,91,39,0.25) 0%, transparent 45%),
-    radial-gradient(ellipse at 55% 60%, rgba(155,142,196,0.45) 0%, transparent 50%),
-    radial-gradient(ellipse at 30% 30%, rgba(255,200,180,0.3) 0%, transparent 45%),
-    #f0f2f8;
+    radial-gradient(ellipse at 10% 95%, rgba(80,160,60,0.28) 0%, transparent 42%),
+    radial-gradient(ellipse at 90% 95%, rgba(60,140,50,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 3%,  rgba(255,220,90,0.22) 0%, transparent 42%),
+    radial-gradient(ellipse at 80% 8%,  rgba(255,180,50,0.18) 0%, transparent 38%),
+    #F5E8C0;
   background-attachment: fixed;
 }
 
@@ -45,20 +67,24 @@ html, body, #root {
 
 /* ─── Back Button ─────────────────────────────────────────────── */
 .back-btn {
-  background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,91,39,0.2);
+  background: rgba(255,250,232,0.75);
+  border: 1.5px solid var(--j-border);
   border-radius: 10px;
-  padding: 8px 16px;
+  padding: 8px 18px;
   font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--navy);
+  font-weight: 700;
+  color: var(--j-dark);
   cursor: pointer;
   transition: all 0.2s;
   margin-bottom: 20px;
   display: inline-block;
 }
-.back-btn:hover { background: var(--orange); color: white; border-color: var(--orange); }
+.back-btn:hover {
+  background: linear-gradient(135deg, var(--j-brown), var(--j-gold));
+  color: #FFF8E8;
+  border-color: transparent;
+}
 
 /* ─── CONFETTI ─────────────────────────────────────────────────── */
 .confetti-container {
@@ -92,10 +118,10 @@ html, body, #root {
   gap: 14px;
   width: 100%;
   padding: 15px 28px;
-  background: linear-gradient(135deg, #FF5B27 0%, #ff7a46 40%, #9B8EC4 100%);
+  background: linear-gradient(135deg, #8B5A1A 0%, #C47A20 45%, #5A8A2A 100%);
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 36px rgba(255,91,39,0.35), 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 36px rgba(100,60,10,0.35), 0 2px 8px rgba(0,0,0,0.08);
   animation: bannerEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 @keyframes bannerEntrance {
@@ -178,16 +204,16 @@ html, body, #root {
 
 .subtitle {
   font-size: 1.1rem;
-  color: #6b7280;
-  font-weight: 500;
+  color: var(--j-brown);
+  font-weight: 600;
   margin-top: 6px;
   letter-spacing: 0.5px;
 }
 
 .hero-badge {
-  background: rgba(255,91,39,0.1);
-  border: 1.5px solid rgba(255,91,39,0.3);
-  color: var(--orange);
+  background: rgba(139,90,26,0.10);
+  border: 1.5px solid rgba(139,90,26,0.30);
+  color: var(--j-brown);
   border-radius: 50px;
   padding: 8px 24px;
   font-size: 0.9rem;
@@ -218,17 +244,28 @@ html, body, #root {
 }
 
 .card-admin {
-  background: linear-gradient(135deg, #FF5B27 0%, #e04a1a 100%);
-  color: white;
+  background: linear-gradient(135deg, #8B5A1A 0%, #C47A20 50%, #8B5A1A 100%);
+  background-size: 200% auto;
+  color: #FFF8E8;
+  border-color: transparent;
 }
-.card-admin:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(255,91,39,0.4); }
+.card-admin:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(100,60,10,0.45);
+  background-position: right center;
+}
 
 .card-player {
-  background: white;
-  color: var(--navy);
-  border-color: rgba(26,26,46,0.1);
+  background: var(--j-parch);
+  color: var(--j-dark);
+  border-color: var(--j-border);
+  backdrop-filter: blur(10px);
 }
-.card-player:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--orange); }
+.card-player:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--j-shadow-lg);
+  border-color: var(--j-gold);
+}
 
 .card-icon { font-size: 2.5rem; }
 .card-title { font-size: 1.2rem; font-weight: 800; }
@@ -250,8 +287,14 @@ html, body, #root {
   text-align: center;
   margin-bottom: 32px;
 }
-.admin-title { font-size: 2rem; font-weight: 900; color: var(--navy); }
-.admin-subtitle { color: #6b7280; font-weight: 500; margin-top: 6px; }
+.admin-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--j-dark);
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 2px;
+}
+.admin-subtitle { color: var(--j-brown); font-weight: 500; margin-top: 6px; }
 
 .admin-grid {
   display: grid;
@@ -265,18 +308,19 @@ html, body, #root {
 }
 
 .admin-card {
-  background: rgba(255,255,255,0.9);
+  background: var(--j-parch);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius);
   padding: 28px;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--j-shadow);
+  border: 1.5px solid var(--j-border);
 }
 
 .admin-card h3 {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--j-dark);
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -288,12 +332,13 @@ html, body, #root {
   font-weight: 900;
   letter-spacing: 12px;
   text-align: center;
-  color: var(--orange);
-  background: rgba(255,91,39,0.06);
+  color: var(--j-brown);
+  background: rgba(139,90,26,0.06);
   border-radius: 14px;
   padding: 16px;
   margin-bottom: 16px;
-  border: 2px dashed rgba(255,91,39,0.25);
+  border: 2px dashed rgba(139,90,26,0.25);
+  font-family: 'Luckiest Guy', cursive;
 }
 
 .code-actions {
@@ -306,32 +351,36 @@ html, body, #root {
   flex: 1;
   padding: 10px 12px;
   border-radius: 10px;
-  border: 1.5px solid rgba(255,91,39,0.3);
-  background: rgba(255,91,39,0.05);
-  color: var(--orange);
+  border: 1.5px solid rgba(139,90,26,0.30);
+  background: rgba(139,90,26,0.07);
+  color: var(--j-brown);
   font-family: 'Poppins', sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
-.btn-secondary:hover { background: var(--orange); color: white; }
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--j-brown), var(--j-gold));
+  color: #FFF8E8;
+  border-color: transparent;
+}
 
 .qr-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background: white;
+  background: rgba(255,255,255,0.85);
   border-radius: 16px;
   padding: 16px;
-  border: 2px solid rgba(26,26,46,0.06);
+  border: 1.5px solid var(--j-border);
 }
-.qr-hint { font-size: 0.78rem; color: var(--gray); font-weight: 500; }
+.qr-hint { font-size: 0.78rem; color: var(--j-brown); font-weight: 500; }
 
 .player-count {
-  background: var(--orange);
-  color: white;
+  background: linear-gradient(135deg, var(--j-brown), var(--j-gold));
+  color: #FFF8E8;
   border-radius: 50px;
   padding: 2px 12px;
   font-size: 0.8rem;
@@ -363,12 +412,13 @@ html, body, #root {
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
-  background: var(--gray-light);
+  background: rgba(245,232,192,0.6);
+  border: 1px solid rgba(139,90,26,0.15);
   border-radius: 12px;
   animation: slideIn 0.3s ease;
 }
 .player-avatar { font-size: 1.4rem; }
-.player-name { flex: 1; font-weight: 600; font-size: 0.9rem; }
+.player-name { flex: 1; font-weight: 600; font-size: 0.9rem; color: var(--j-dark); }
 .kick-btn {
   width: 28px; height: 28px;
   border-radius: 50%;
@@ -386,71 +436,93 @@ html, body, #root {
 .btn-start {
   width: 100%;
   padding: 16px 24px;
-  border-radius: 14px;
+  border-radius: 50px;
   border: none;
-  background: linear-gradient(135deg, #FF5B27 0%, #e04a1a 100%);
-  color: white;
-  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #8B5A1A 0%, #C47A20 50%, #8B5A1A 100%);
+  background-size: 200% auto;
+  color: #FFF8E8;
+  font-family: 'Luckiest Guy', cursive;
   font-size: 1rem;
-  font-weight: 700;
+  letter-spacing: 2px;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: 0 6px 24px rgba(255,91,39,0.35);
-  letter-spacing: 0.3px;
+  box-shadow: 0 6px 24px rgba(100,60,10,0.38),
+              0 2px 0 rgba(255,220,100,0.3) inset;
 }
 .btn-start:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(255,91,39,0.5);
+  box-shadow: 0 12px 36px rgba(100,60,10,0.50);
+  background-position: right center;
 }
 .btn-disabled {
-  background: linear-gradient(135deg, #d1d5db, #9ca3af) !important;
+  background: linear-gradient(135deg, #c8b898, #a89878) !important;
   box-shadow: none !important;
   cursor: not-allowed !important;
   transform: none !important;
+  opacity: 0.7;
 }
 
 /* ─── JOIN PAGE ─────────────────────────────────────────────────── */
 .join-container {
-  background: rgba(255,255,255,0.92);
+  background: var(--j-parch);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 28px;
   padding: 40px 36px;
   width: 100%;
   max-width: 480px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--j-shadow-lg);
+  border: 1.5px solid var(--j-border);
 }
 
 .join-header {
   text-align: center;
   margin-bottom: 28px;
 }
-.join-header h1 { font-size: 1.7rem; font-weight: 900; color: var(--navy); }
-.join-header p { color: var(--gray); font-size: 0.88rem; margin-top: 6px; }
+.join-header h1 {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--j-dark);
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 2px;
+}
+.join-header p { color: var(--j-brown); font-size: 0.88rem; margin-top: 6px; font-weight: 500; }
 
 .join-form { display: flex; flex-direction: column; gap: 20px; }
 
 .form-group { display: flex; flex-direction: column; gap: 8px; }
-.form-group label { font-size: 0.82rem; font-weight: 700; color: var(--navy); letter-spacing: 0.3px; text-transform: uppercase; }
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--j-dark);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
 
 .code-input, .text-input {
   width: 100%;
   padding: 14px 18px;
   border-radius: 14px;
-  border: 2px solid rgba(26,26,46,0.1);
+  border: 2px solid rgba(139,90,26,0.20);
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--navy);
-  background: var(--gray-light);
+  color: var(--j-dark);
+  background: rgba(245,232,192,0.55);
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
 }
-.code-input { font-size: 2rem; letter-spacing: 8px; text-align: center; }
+.code-input {
+  font-size: 2rem;
+  letter-spacing: 8px;
+  text-align: center;
+  font-family: 'Luckiest Guy', cursive;
+  color: var(--j-brown);
+}
 .code-input:focus, .text-input:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 4px rgba(255,91,39,0.12);
-  background: white;
+  border-color: var(--j-gold);
+  box-shadow: 0 0 0 4px rgba(212,168,67,0.18);
+  background: rgba(255,250,232,0.9);
 }
 
 .avatar-grid {
@@ -461,8 +533,8 @@ html, body, #root {
 .avatar-btn {
   aspect-ratio: 1;
   border-radius: 12px;
-  border: 2px solid rgba(26,26,46,0.1);
-  background: var(--gray-light);
+  border: 2px solid rgba(139,90,26,0.18);
+  background: rgba(245,232,192,0.55);
   font-size: 1.4rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -470,12 +542,12 @@ html, body, #root {
   align-items: center;
   justify-content: center;
 }
-.avatar-btn:hover { border-color: var(--orange); transform: scale(1.08); }
+.avatar-btn:hover { border-color: var(--j-gold); transform: scale(1.08); }
 .avatar-selected {
-  border-color: var(--orange);
-  background: rgba(255,91,39,0.1);
+  border-color: var(--j-brown);
+  background: rgba(139,90,26,0.12);
   transform: scale(1.08);
-  box-shadow: 0 4px 12px rgba(255,91,39,0.25);
+  box-shadow: 0 4px 12px rgba(139,90,26,0.28);
 }
 
 .error-msg {
@@ -499,13 +571,21 @@ html, body, #root {
 }
 
 .waiting-header { text-align: center; }
-.waiting-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
-.waiting-header h2 { font-size: 1.8rem; font-weight: 800; color: var(--navy); }
+.waiting-logo-img { width: 80px; height: auto; object-fit: contain; margin-bottom: 8px; }
+.waiting-header h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--j-dark);
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 2px;
+}
 .waiting-code {
   margin-top: 8px;
   font-size: 0.9rem;
-  color: var(--gray);
-  background: rgba(255,255,255,0.7);
+  color: var(--j-brown);
+  font-weight: 600;
+  background: rgba(255,250,232,0.75);
+  border: 1px solid var(--j-border);
   border-radius: 10px;
   padding: 6px 16px;
   display: inline-block;
@@ -516,17 +596,18 @@ html, body, #root {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.85);
+  background: var(--j-parch);
+  border: 1.5px solid var(--j-border);
   border-radius: 20px;
   padding: 24px 40px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--j-shadow);
 }
 .waiting-avatar { font-size: 3.5rem; }
-.waiting-name { font-size: 1.3rem; font-weight: 800; color: var(--navy); }
+.waiting-name { font-size: 1.3rem; font-weight: 800; color: var(--j-dark); }
 .waiting-badge {
-  background: rgba(34,197,94,0.12);
-  border: 1.5px solid rgba(34,197,94,0.4);
-  color: #16a34a;
+  background: rgba(90,138,42,0.12);
+  border: 1.5px solid rgba(90,138,42,0.4);
+  color: #3a6e14;
   border-radius: 50px;
   padding: 4px 16px;
   font-size: 0.78rem;
@@ -535,16 +616,17 @@ html, body, #root {
 
 .waiting-players-section {
   width: 100%;
-  background: rgba(255,255,255,0.85);
+  background: var(--j-parch);
+  border: 1.5px solid var(--j-border);
   border-radius: 20px;
   padding: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--j-shadow);
 }
 .waiting-players-section h3 {
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 16px;
-  color: var(--navy);
+  color: var(--j-dark);
 }
 .waiting-players-grid {
   display: flex;
@@ -555,11 +637,13 @@ html, body, #root {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--gray-light);
+  background: rgba(245,232,192,0.65);
+  border: 1px solid rgba(139,90,26,0.18);
   border-radius: 50px;
   padding: 6px 14px;
   font-size: 0.85rem;
   font-weight: 600;
+  color: var(--j-dark);
   animation: slideIn 0.3s ease;
 }
 
@@ -568,7 +652,7 @@ html, body, #root {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  color: var(--gray);
+  color: var(--j-brown);
   font-size: 0.88rem;
   font-weight: 500;
 }
@@ -582,7 +666,7 @@ html, body, #root {
 .pulse-dot {
   width: 14px; height: 14px;
   border-radius: 50%;
-  background: var(--orange);
+  background: var(--j-gold);
   animation: pulse 1.4s ease-in-out infinite;
 }
 @keyframes pulse {
@@ -603,9 +687,10 @@ html, body, #root {
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,250,232,0.88);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(26,26,46,0.08);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid var(--j-border);
 }
 
 .quiz-level {
@@ -614,23 +699,29 @@ html, body, #root {
   gap: 6px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--navy);
-  background: var(--gray-light);
+  color: var(--j-dark);
+  background: rgba(245,232,192,0.8);
+  border: 1px solid var(--j-border);
   border-radius: 50px;
   padding: 6px 14px;
 }
 .quiz-progress {
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--j-dark);
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 1px;
 }
 .quiz-score {
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--orange);
-  background: rgba(255,91,39,0.08);
+  color: var(--j-brown);
+  background: rgba(139,90,26,0.10);
+  border: 1px solid rgba(139,90,26,0.25);
   border-radius: 50px;
   padding: 6px 14px;
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 1px;
 }
 
 .timer-bar-wrapper {
@@ -666,17 +757,18 @@ html, body, #root {
 
 .question-card {
   width: 100%;
-  background: rgba(255,255,255,0.92);
+  background: var(--j-parch);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius);
   padding: 28px 32px;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--j-shadow);
+  border: 1.5px solid var(--j-border);
 }
 .question-text {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--navy);
+  color: var(--j-dark);
   line-height: 1.5;
   text-align: center;
 }
@@ -700,12 +792,12 @@ html, body, #root {
   gap: 14px;
   padding: 16px 20px;
   border-radius: 16px;
-  border: 2.5px solid rgba(26,26,46,0.1);
-  background: rgba(255,255,255,0.9);
+  border: 2px solid rgba(139,90,26,0.18);
+  background: rgba(255,250,232,0.85);
   font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--j-dark);
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
@@ -713,9 +805,9 @@ html, body, #root {
 }
 .option-btn:hover:not(:disabled) {
   border-color: var(--option-color);
-  background: rgba(255,255,255,1);
+  background: rgba(255,250,232,1);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(80,40,5,0.15);
 }
 .option-label {
   width: 32px; height: 32px;
@@ -754,12 +846,13 @@ html, body, #root {
 }
 
 .answer-pending {
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,250,232,0.85);
+  border: 1px solid var(--j-border);
   border-radius: 14px;
   padding: 12px 20px;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--gray);
+  color: var(--j-brown);
   text-align: center;
   width: 100%;
 }
@@ -786,16 +879,19 @@ html, body, #root {
 
 .mini-leaderboard {
   width: 100%;
-  background: rgba(255,255,255,0.9);
+  background: var(--j-parch);
+  border: 1.5px solid var(--j-border);
   border-radius: var(--radius);
   padding: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--j-shadow);
 }
 .mini-leaderboard h4 {
   font-size: 0.9rem;
   font-weight: 800;
-  color: var(--navy);
+  color: var(--j-dark);
   margin-bottom: 12px;
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 1px;
 }
 .mini-scores { display: flex; flex-direction: column; gap: 8px; }
 .mini-row {
@@ -804,18 +900,18 @@ html, body, #root {
   gap: 10px;
   padding: 8px 12px;
   border-radius: 10px;
-  background: var(--gray-light);
+  background: rgba(245,232,192,0.60);
   font-size: 0.83rem;
 }
 .mini-row-me {
-  background: rgba(255,91,39,0.08);
-  border: 1.5px solid rgba(255,91,39,0.25);
+  background: rgba(139,90,26,0.10);
+  border: 1.5px solid rgba(139,90,26,0.28);
 }
-.mini-rank { font-weight: 800; color: var(--orange); width: 28px; }
+.mini-rank { font-weight: 800; color: var(--j-brown); width: 28px; }
 .mini-avatar { font-size: 1.1rem; }
-.mini-name { flex: 1; font-weight: 600; }
-.mini-score { font-weight: 700; color: var(--navy); }
-.mini-correct { color: #16a34a; font-weight: 800; }
+.mini-name { flex: 1; font-weight: 600; color: var(--j-dark); }
+.mini-score { font-weight: 700; color: var(--j-brown); }
+.mini-correct { color: #3a6e14; font-weight: 800; }
 
 /* ─── PODIUM PAGE ─────────────────────────────────────────────── */
 .podium-page {
@@ -823,7 +919,7 @@ html, body, #root {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 24px 16px 48px;
+  padding: 24px 16px 80px;
   overflow: hidden;
   position: relative;
 }
@@ -843,11 +939,13 @@ html, body, #root {
 .podium-title {
   font-size: 2.5rem;
   font-weight: 900;
-  color: var(--navy);
+  color: var(--j-dark);
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 3px;
   line-height: 1;
 }
 .podium-subtitle {
-  color: #6b7280;
+  color: var(--j-brown);
   font-size: 0.9rem;
   margin-top: 6px;
   font-weight: 500;
@@ -857,13 +955,13 @@ html, body, #root {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255,91,39,0.08);
-  border: 2px solid rgba(255,91,39,0.25);
+  background: rgba(139,90,26,0.10);
+  border: 2px solid rgba(139,90,26,0.28);
   border-radius: 50px;
   padding: 10px 24px;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--j-dark);
 }
 
 .podium-stage {
@@ -903,7 +1001,7 @@ html, body, #root {
 .podium-player-name {
   font-size: 0.85rem;
   font-weight: 800;
-  color: var(--navy);
+  color: var(--j-dark);
   text-align: center;
   max-width: 100px;
   word-break: break-word;
@@ -911,7 +1009,7 @@ html, body, #root {
 .podium-player-score {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #6b7280;
+  color: var(--j-brown);
 }
 
 .podium-bar {
@@ -931,29 +1029,37 @@ html, body, #root {
 
 .rest-scores {
   width: 100%;
-  background: rgba(255,255,255,0.9);
+  background: var(--j-parch);
+  border: 1.5px solid var(--j-border);
   border-radius: var(--radius);
   padding: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--j-shadow);
 }
-.rest-scores h3 { font-size: 0.9rem; font-weight: 800; margin-bottom: 14px; color: var(--navy); }
+.rest-scores h3 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: var(--j-dark);
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 1px;
+}
 .rest-row {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
   border-radius: 12px;
-  background: var(--gray-light);
+  background: rgba(245,232,192,0.60);
   margin-bottom: 8px;
 }
 .rest-row-me {
-  background: rgba(255,91,39,0.06);
-  border: 1.5px solid rgba(255,91,39,0.2);
+  background: rgba(139,90,26,0.10);
+  border: 1.5px solid rgba(139,90,26,0.28);
 }
-.rest-rank { font-weight: 800; color: var(--gray); width: 32px; font-size: 0.85rem; }
+.rest-rank { font-weight: 800; color: var(--j-brown); width: 32px; font-size: 0.85rem; }
 .rest-avatar { font-size: 1.2rem; }
-.rest-name { flex: 1; font-weight: 600; font-size: 0.88rem; }
-.rest-score { font-weight: 700; color: var(--navy); font-size: 0.88rem; }
+.rest-name { flex: 1; font-weight: 600; font-size: 0.88rem; color: var(--j-dark); }
+.rest-score { font-weight: 700; color: var(--j-brown); font-size: 0.88rem; }
 
 /* ─── Confetti ────────────────────────────────────────────────── */
 .confetti-piece {
@@ -975,14 +1081,14 @@ html, body, #root {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  color: var(--navy);
+  color: var(--j-dark);
   font-weight: 600;
 }
 .loading-spinner {
   width: 44px; height: 44px;
   border-radius: 50%;
-  border: 4px solid rgba(255,91,39,0.2);
-  border-top-color: var(--orange);
+  border: 4px solid rgba(139,90,26,0.2);
+  border-top-color: var(--j-brown);
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -1104,6 +1210,34 @@ html, body, #root {
 @keyframes tickerScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+/* ─── JUNGLE GLOBAL (toutes pages sauf splash) ──────────────────── */
+.jbg-root {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.jbg-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(50,90,15,0.12) 0%, transparent 100%);
+  overflow: hidden;
+}
+.jbg-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 130px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 130' preserveAspectRatio='none'%3E%3Cpath d='M0%2C75 C80%2C38 160%2C92 240%2C60 C320%2C28 400%2C85 480%2C58 C560%2C31 640%2C78 720%2C52 C800%2C26 880%2C76 960%2C50 C1040%2C24 1120%2C72 1200%2C48 C1280%2C24 1360%2C72 1440%2C52 L1440%2C130 L0%2C130 Z' fill='%2378C03070'%2F%3E%3Cpath d='M0%2C95 C70%2C62 150%2C108 230%2C80 C310%2C52 390%2C102 470%2C76 C550%2C50 630%2C96 710%2C70 C790%2C44 870%2C94 950%2C68 C1030%2C42 1110%2C90 1190%2C65 C1270%2C40 1360%2C90 1440%2C70 L1440%2C130 L0%2C130 Z' fill='%235A9E2288'%2F%3E%3C%2Fsvg%3E");
+  background-size: 100% 100%;
 }
 
 /* ─── JUNGLE DÉCOR (arrière-plan, z-index bas) ──────────────────── */
@@ -1250,6 +1384,8 @@ html, body, #root {
   text-transform: uppercase;
   user-select: none;
 }
+/* Override for jungle-themed captions (inside the border) */
+.jungle-caption { position: relative; bottom: auto; }
 
 /* ─── SPLASH PAGE ─────────────────────────────────────────────── */
 .splash-page {
@@ -1418,39 +1554,93 @@ html, body, #root {
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  z-index: 1;
+  z-index: 2;
 }
 .photo-strip .polaroid + .polaroid {
-  margin-top: -72px;
+  margin-top: -80px;
 }
 @media (max-width: 760px) {
   .photo-strip { display: none; }
 }
 
-/* ─── Polaroid frames ──────────────────────────────────────────── */
+/* ─── Polaroid frames (jungle theme) ──────────────────────────── */
 .polaroid {
   position: relative;
-  width: clamp(170px, 19vw, 245px);
+  width: clamp(160px, 18vw, 230px);
   background: #fefefe;
-  padding: 10px 10px 48px;
+  padding: 8px 8px 42px;
   box-shadow:
-    0 1px 2px rgba(0,0,0,0.06),
-    0 4px 12px rgba(0,0,0,0.10),
-    0 16px 40px rgba(0,0,0,0.08),
-    0 40px 80px rgba(0,0,0,0.04);
+    0 4px 16px rgba(80,40,5,0.18),
+    0 16px 48px rgba(80,40,5,0.12);
   border-radius: 2px;
   transform: translateX(var(--tx)) rotate(var(--rotate));
   animation: polaroidEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
   transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s;
   will-change: transform;
 }
+
+/* Jungle-themed frame overrides */
+.polaroid.jungle-frame {
+  background: linear-gradient(170deg, #FFF4D4 0%, #F0E090 100%);
+  border: 5px solid #8B5E12;
+  outline: 1.5px solid rgba(218,175,70,0.55);
+  outline-offset: -6px;
+  padding: 8px 8px 0;
+  box-shadow:
+    inset 0 0 12px rgba(140,95,20,0.12),
+    0 4px 18px rgba(80,40,5,0.22),
+    0 20px 52px rgba(80,40,5,0.15);
+  border-radius: 3px;
+}
+.polaroid.jungle-frame img {
+  aspect-ratio: 3 / 2;
+  border-radius: 1px;
+  border: 1px solid rgba(140,95,20,0.12);
+}
+/* Caption area inside the border */
+.polaroid.jungle-frame .jungle-caption {
+  position: relative;
+  bottom: auto;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  background: transparent;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: rgba(90, 55, 5, 0.65);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  user-select: none;
+  margin-top: 4px;
+}
+
+/* Leaf corner decorations */
+.jungle-frame-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 3;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jungle-frame-corner::before { content: '🌿'; }
+.jungle-frame-corner.tl { top: -3px;  left: -2px;  transform: rotate(-20deg); }
+.jungle-frame-corner.tr { top: -3px;  right: -2px; transform: rotate(70deg);  }
+.jungle-frame-corner.bl { bottom: 28px; left: -2px;  transform: rotate(-140deg); }
+.jungle-frame-corner.br { bottom: 28px; right: -2px; transform: rotate(160deg); }
+
 .polaroid:hover {
   transform: translateX(var(--tx)) rotate(0deg) scale(1.09) translateY(-14px) !important;
   box-shadow:
-    0 2px 4px rgba(0,0,0,0.06),
-    0 12px 30px rgba(0,0,0,0.14),
-    0 40px 80px rgba(0,0,0,0.12),
-    0 0 0 1.5px rgba(255,91,39,0.18);
+    0 12px 36px rgba(80,40,5,0.22),
+    0 40px 80px rgba(80,40,5,0.14),
+    0 0 0 2px rgba(212,168,67,0.5);
   z-index: 20;
 }
 .polaroid img {
@@ -1467,7 +1657,7 @@ html, body, #root {
   right: 0;
   height: 3px;
   border-radius: 0 0 2px 2px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,91,39,0.6) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(212,168,67,0.6) 50%, transparent 100%);
 }
 @keyframes polaroidEnter {
   from {
@@ -1478,6 +1668,28 @@ html, body, #root {
     opacity: 1;
     transform: translateX(var(--tx)) rotate(var(--rotate)) scale(1);
   }
+}
+
+/* ─── Message Bienvenue dans la carte ─────────────────────────── */
+.splash-bienvenue-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: splashFadeUp 0.7s ease 0.45s both;
+}
+.splash-leaf-deco {
+  font-size: 1.1rem;
+  display: inline-block;
+  animation: vineSway 2.8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 4px rgba(30,60,10,0.22));
+}
+.splash-bienvenue-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: rgba(61, 42, 26, 0.62);
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
 .splash-enter-btn {

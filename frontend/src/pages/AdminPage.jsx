@@ -57,15 +57,15 @@ export default function AdminPage() {
 
   if (creating) {
     return (
-      <div className="page-center gradient-bg">
+      <div className="page-center jungle-bg">
         <div className="loading-spinner" />
-        <p style={{ color: '#fff', marginTop: 16, fontWeight: 600 }}>Création de la room…</p>
+        <p style={{ color: '#3D2A1A', marginTop: 16, fontWeight: 600 }}>Création de la room…</p>
       </div>
     );
   }
 
   return (
-    <div className="page-center gradient-bg">
+    <div className="page-center jungle-bg">
       <div className="admin-container">
         <div className="admin-header">
           <button className="back-btn" onClick={() => navigate('/home')}>← Retour</button>

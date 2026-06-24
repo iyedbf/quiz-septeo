@@ -41,7 +41,7 @@ export default function PodiumPage() {
   const rest = finalScores.slice(3);
 
   return (
-    <div className="podium-page gradient-bg">
+    <div className="podium-page jungle-bg">
       {confetti.map((c) => (
         <div
           key={c.id}

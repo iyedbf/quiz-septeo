@@ -49,7 +49,7 @@ export default function JoinPage() {
   };
 
   return (
-    <div className="page-center gradient-bg">
+    <div className="page-center jungle-bg">
       <div className="join-container">
         <button className="back-btn" onClick={() => navigate('/home')}>← Retour</button>
 

@@ -97,7 +97,7 @@ export default function QuizPage() {
 
   if (phase === 'loading') {
     return (
-      <div className="page-center gradient-bg">
+      <div className="page-center jungle-bg">
         <div className="loading-card">
           <div className="loading-spinner" />
           <p>Chargement de la question…</p>
@@ -107,7 +107,7 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="quiz-page gradient-bg">
+    <div className="quiz-page jungle-bg">
       <div className="quiz-topbar">
         <div className="quiz-level">
           <span>{question?.emoji}</span>

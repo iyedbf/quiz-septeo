@@ -7,6 +7,7 @@ import JoinPage from './pages/JoinPage.jsx';
 import WaitingRoom from './pages/WaitingRoom.jsx';
 import QuizPage from './pages/QuizPage.jsx';
 import PodiumPage from './pages/PodiumPage.jsx';
+import JungleBg from './components/JungleBg.jsx';
 import socket from './socket.js';
 
 export const GameContext = React.createContext({});
@@ -63,6 +64,7 @@ function AppContent() {
 
   return (
     <GameContext.Provider value={{ gameState, setGameState }}>
+      <JungleBg />
       <Routes>
         <Route path="/" element={<SplashPage />} />
         <Route path="/home" element={<HomePage />} />

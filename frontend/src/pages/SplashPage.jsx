@@ -4,6 +4,63 @@ import { useNavigate } from 'react-router-dom';
 const BURST_COLORS = ['#FF5B27', '#FFD700', '#7ECED9', '#9B8EC4', '#FF8C5A', '#4ECDC4', '#fff', '#FFB347'];
 const SPARKLE_CHARS = ['✦', '★', '✧', '✶', '✵', '⭐'];
 
+/* ── Décor jungle ─────────────────────────────── */
+const TOP_LEAVES = [
+  '🌿','🍃','🌱','🍀','🌿','🍃','🌴','🌿','🍃','🌱','🍀','🌿','🍃','🌴',
+];
+const SIDE_ITEMS = [
+  { char: '🦜', style: { left:  '0.5%', bottom: '22%' }, size: '2.8rem', delay: 0.4 },
+  { char: '🎒', style: { right: '0.5%', bottom: '22%' }, size: '2.6rem', delay: 0.6 },
+  { char: '🧭', style: { right: '1%',   top:    '12%' }, size: '2.2rem', delay: 0.9 },
+  { char: '🗺️', style: { left:  '1%',   top:    '15%' }, size: '2rem',   delay: 0.7 },
+];
+const BOTTOM_ITEMS = [
+  { char: '👒',  left: '14%',  size: '2rem',   delay: 0.5 },
+  { char: '🌺',  left: '22%',  size: '1.8rem', delay: 0.3 },
+  { char: '🔭',  left: '58%',  size: '2.1rem', delay: 0.8 },
+  { char: '🌸',  left: '68%',  size: '1.8rem', delay: 0.4 },
+  { char: '🌿',  left: '35%',  size: '2rem',   delay: 0.6 },
+  { char: '🌿',  left: '47%',  size: '2.2rem', delay: 1.0 },
+];
+
+function JungleDecor() {
+  return (
+    <>
+      {/* ── Lianes du haut ── */}
+      <div className="jungle-top" aria-hidden="true">
+        {TOP_LEAVES.map((leaf, i) => (
+          <span key={i} className="vine-leaf" style={{
+            left: `${(i * 7.5) + 1}%`,
+            top: `${(i % 3) * 10}px`,
+            '--delay': `${i * 0.18}s`,
+            fontSize: `${1.8 + (i % 3) * 0.5}rem`,
+          }}>{leaf}</span>
+        ))}
+      </div>
+
+      {/* ── Feuillage du bas ── */}
+      <div className="jungle-bottom" aria-hidden="true">
+        {BOTTOM_ITEMS.map((item, i) => (
+          <span key={i} className="bottom-flora" style={{
+            left: item.left,
+            fontSize: item.size,
+            '--delay': `${item.delay}s`,
+          }}>{item.char}</span>
+        ))}
+      </div>
+
+      {/* ── Accessoires côtés ── */}
+      {SIDE_ITEMS.map((item, i) => (
+        <span key={i} className="jungle-side-item" style={{
+          ...item.style,
+          fontSize: item.size,
+          '--delay': `${item.delay}s`,
+        }}>{item.char}</span>
+      ))}
+    </>
+  );
+}
+
 const TICKER_ITEMS = [
   '🌍 SEPTEO présent dans plus de 10 pays',
   '👥 Plus de 3 000 collaborateurs',
@@ -183,6 +240,7 @@ export default function SplashPage() {
   return (
     <div className={`splash-page ${phase}`} onMouseMove={handleMouseMove}>
 
+      <JungleDecor />
       <div className="splash-spotlight" aria-hidden="true" />
       <Sparkles />
 

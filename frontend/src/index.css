@@ -1078,6 +1078,72 @@ html, body, #root {
   to   { transform: translateX(-50%); }
 }
 
+/* ─── JUNGLE DÉCOR ──────────────────────────────────────────────── */
+
+/* Lianes du haut */
+.jungle-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(to bottom, rgba(50,90,15,0.14) 0%, transparent 100%);
+  overflow: hidden;
+}
+.vine-leaf {
+  position: absolute;
+  line-height: 1;
+  user-select: none;
+  animation: vineSway 3.5s ease-in-out var(--delay) infinite alternate;
+  transform-origin: top center;
+  filter: drop-shadow(0 4px 6px rgba(30,60,10,0.25));
+}
+@keyframes vineSway {
+  0%   { transform: translateY(0px)  rotate(-6deg) scale(1); }
+  100% { transform: translateY(18px) rotate(6deg)  scale(1.05); }
+}
+
+/* Feuillage du bas — SVG ondulé */
+.jungle-bottom {
+  position: fixed;
+  bottom: 38px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  pointer-events: none;
+  z-index: 3;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath d='M0%2C75 C80%2C38 160%2C92 240%2C60 C320%2C28 400%2C85 480%2C58 C560%2C31 640%2C78 720%2C52 C800%2C26 880%2C76 960%2C50 C1040%2C24 1120%2C72 1200%2C48 C1280%2C24 1360%2C72 1440%2C52 L1440%2C140 L0%2C140 Z' fill='%2378C03088'%2F%3E%3Cpath d='M0%2C95 C70%2C62 150%2C108 230%2C80 C310%2C52 390%2C102 470%2C76 C550%2C50 630%2C96 710%2C70 C790%2C44 870%2C94 950%2C68 C1030%2C42 1110%2C90 1190%2C65 C1270%2C40 1360%2C90 1440%2C70 L1440%2C140 L0%2C140 Z' fill='%235A9E2299'%2F%3E%3Cpath d='M0%2C115 C60%2C88 140%2C128 220%2C106 C300%2C84 380%2C126 460%2C104 C540%2C82 620%2C122 700%2C100 C780%2C78 860%2C118 940%2C97 C1020%2C76 1100%2C116 1180%2C95 C1260%2C74 1360%2C114 1440%2C96 L1440%2C140 L0%2C140 Z' fill='%23408018bb'%2F%3E%3C%2Fsvg%3E");
+  background-size: 100% 100%;
+}
+.bottom-flora {
+  position: absolute;
+  bottom: 28px;
+  user-select: none;
+  animation: floraFloat 4s ease-in-out var(--delay) infinite alternate;
+  filter: drop-shadow(0 3px 5px rgba(20,50,10,0.2));
+}
+@keyframes floraFloat {
+  from { transform: translateY(0) rotate(-3deg); }
+  to   { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* Accessoires côtés */
+.jungle-side-item {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3;
+  user-select: none;
+  animation: sideFloat 4.5s ease-in-out var(--delay) infinite alternate;
+  filter: drop-shadow(0 6px 10px rgba(40,20,0,0.25));
+}
+@keyframes sideFloat {
+  from { transform: translateY(0) rotate(-8deg) scale(1); }
+  to   { transform: translateY(-14px) rotate(8deg) scale(1.06); }
+}
+
 /* ─── PROJECTEUR (SPOTLIGHT) ────────────────────────────────────── */
 .splash-spotlight {
   position: fixed;

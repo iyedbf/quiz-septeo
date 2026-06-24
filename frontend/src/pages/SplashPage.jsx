@@ -221,13 +221,13 @@ export default function SplashPage() {
           </div>
 
           <div className="splash-welcome">
-            <p className="splash-sub">vous présente</p>
+            <p className="splash-sub">SEPTEO Tunisia présente</p>
             <h1 className="splash-title">
-              Bienvenue au
-              <br />
+              <span className="splash-bienvenue">Bienvenue à</span>
               <span className="splash-event">
-                <TypewriterText text="Guinguette 2026" startDelay={1200} speed={70} />
+                <TypewriterText text="La Guinguette" startDelay={900} speed={75} />
               </span>
+              <span className="splash-date">10 Juillet 2026</span>
             </h1>
           </div>
 

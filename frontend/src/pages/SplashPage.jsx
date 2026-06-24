@@ -1,7 +1,19 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const BURST_COLORS = ['#FF5B27', '#FFD700', '#7ECED9', '#9B8EC4', '#FF8C5A', '#4ECDC4', '#fff', '#FFB347'];
+const SPARKLE_CHARS = ['✦', '★', '✧', '✶', '✵', '⭐'];
+
+const TICKER_ITEMS = [
+  '🌍 SEPTEO présent dans plus de 10 pays',
+  '👥 Plus de 3 000 collaborateurs',
+  '💻 Éditeur leader de logiciels SaaS métiers',
+  '⚖️ N°1 du logiciel notarial en France',
+  '🚀 Pionnier de la transformation numérique',
+  '🏆 Guinguette 2026 — Soirée annuelle SEPTEO Tunisia',
+  '✨ Merci d\'être là ce soir !',
+  '🎊 Bonne soirée à tous !',
+];
 
 const LEFT_PHOTOS = [
   { src: '/photos/IMG_0065_20250710_212145.jpg',   rotate: -7, tx:  18, delay: 0.15, caption: 'Guinguette 2025 🎊' },
@@ -14,8 +26,38 @@ const RIGHT_PHOTOS = [
   { src: '/photos/IMG_0233_20250710_235931 1.jpg', rotate:  5, tx:  -8, delay: 0.50, caption: 'On y était 🎉' },
 ];
 
-const SPARKLE_CHARS = ['✦', '★', '✧', '✶', '✵', '⭐'];
+/* ── Machine à écrire ─────────────────────────── */
+function TypewriterText({ text, startDelay = 0, speed = 65 }) {
+  const [displayed, setDisplayed] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
 
+  useEffect(() => {
+    let idx = 0;
+    let interval;
+    const timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        idx++;
+        setDisplayed(text.slice(0, idx));
+        if (idx >= text.length) clearInterval(interval);
+      }, speed);
+    }, startDelay);
+    return () => { clearTimeout(timeout); clearInterval(interval); };
+  }, [text, startDelay, speed]);
+
+  useEffect(() => {
+    const blink = setInterval(() => setShowCursor(v => !v), 530);
+    return () => clearInterval(blink);
+  }, []);
+
+  return (
+    <>
+      {displayed}
+      <span className="typewriter-cursor" style={{ opacity: displayed.length >= text.length ? (showCursor ? 1 : 0) : 1 }}>|</span>
+    </>
+  );
+}
+
+/* ── Étincelles ───────────────────────────────── */
 function Sparkles() {
   const items = useMemo(() =>
     Array.from({ length: 20 }, (_, i) => ({
@@ -29,50 +71,30 @@ function Sparkles() {
       color: BURST_COLORS[i % 5],
     })), []
   );
-
   return (
     <div className="sparkles-container" aria-hidden="true">
       {items.map(s => (
-        <span
-          key={s.id}
-          className="sparkle-star"
-          style={{
-            top: s.top,
-            left: s.left,
-            fontSize: s.size + 'px',
-            color: s.color,
-            '--delay': `${s.delay}s`,
-            '--duration': `${s.duration}s`,
-          }}
-        >
-          {s.char}
-        </span>
+        <span key={s.id} className="sparkle-star" style={{
+          top: s.top, left: s.left, fontSize: s.size + 'px', color: s.color,
+          '--delay': `${s.delay}s`, '--duration': `${s.duration}s`,
+        }}>{s.char}</span>
       ))}
     </div>
   );
 }
 
+/* ── Bande photos ─────────────────────────────── */
 function PhotoStrip({ photos, side, offset }) {
   return (
     <div
       className={`photo-strip ${side}-strip`}
-      style={{
-        transform: `translate(${offset.x}px, ${offset.y}px)`,
-        transition: 'transform 0.12s ease-out',
-        willChange: 'transform',
-      }}
+      style={{ transform: `translate(${offset.x}px, ${offset.y}px)`, transition: 'transform 0.12s ease-out', willChange: 'transform' }}
     >
       {photos.map((p, i) => (
-        <div
-          key={i}
-          className="polaroid"
-          style={{
-            '--rotate': `${p.rotate}deg`,
-            '--tx': `${p.tx}px`,
-            '--delay': `${p.delay}s`,
-            '--side': side === 'left' ? '-1' : '1',
-          }}
-        >
+        <div key={i} className="polaroid" style={{
+          '--rotate': `${p.rotate}deg`, '--tx': `${p.tx}px`,
+          '--delay': `${p.delay}s`, '--side': side === 'left' ? '-1' : '1',
+        }}>
           <img src={p.src} alt={`souvenir ${i + 1}`} loading="lazy" />
           <div className="polaroid-footer" />
           {p.caption && <div className="polaroid-caption">{p.caption}</div>}
@@ -82,15 +104,35 @@ function PhotoStrip({ photos, side, offset }) {
   );
 }
 
+/* ── Ticker défilant ──────────────────────────── */
+function Ticker() {
+  const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+  return (
+    <div className="splash-ticker" aria-hidden="true">
+      <div className="splash-ticker-track">
+        {items.map((item, i) => (
+          <span key={i} className="splash-ticker-item">
+            {item}
+            <span className="splash-ticker-sep">✦</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Page principale ──────────────────────────── */
 export default function SplashPage() {
   const navigate = useNavigate();
   const [phase, setPhase] = useState('enter');
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [burstParticles, setBurstParticles] = useState([]);
+  const cardRef = useRef(null);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('visible'), 100);
-    return () => clearTimeout(t1);
+    const t = setTimeout(() => setPhase('visible'), 100);
+    return () => clearTimeout(t);
   }, []);
 
   const handleMouseMove = useCallback((e) => {
@@ -99,6 +141,19 @@ export default function SplashPage() {
       x: (e.clientX - rect.left - rect.width / 2) / (rect.width / 2),
       y: (e.clientY - rect.top - rect.height / 2) / (rect.height / 2),
     });
+  }, []);
+
+  const handleCardMove = useCallback((e) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+    setTilt({ x: y * -9, y: x * 9 });
+  }, []);
+
+  const handleCardLeave = useCallback(() => {
+    setTilt({ x: 0, y: 0 });
   }, []);
 
   const handleEnter = () => {
@@ -128,59 +183,63 @@ export default function SplashPage() {
   return (
     <div className={`splash-page ${phase}`} onMouseMove={handleMouseMove}>
 
-      {/* ── Projecteur ── */}
       <div className="splash-spotlight" aria-hidden="true" />
-
-      {/* ── Étincelles ── */}
       <Sparkles />
 
-      {/* ── Explosion de confettis ── */}
       {burstParticles.map(p => (
-        <div
-          key={p.id}
-          className="burst-particle"
-          style={{
-            width: p.size,
-            height: p.isCircle ? p.size : p.size * 1.7,
-            background: p.color,
-            borderRadius: p.isCircle ? '50%' : '2px',
-            '--tx': p.tx,
-            '--ty': p.ty,
-            '--rotation': p.rotation,
-          }}
-        />
+        <div key={p.id} className="burst-particle" style={{
+          width: p.size, height: p.isCircle ? p.size : p.size * 1.7,
+          background: p.color, borderRadius: p.isCircle ? '50%' : '2px',
+          '--tx': p.tx, '--ty': p.ty, '--rotation': p.rotation,
+        }} />
       ))}
 
       <PhotoStrip photos={LEFT_PHOTOS}  side="left"  offset={leftOffset} />
 
-      <div className="splash-content">
-        <div className="splash-logo-wrap">
-          <div className="splash-logo-ring" />
-          <div className="splash-logo-ring ring-2" />
-          <img src="/septeo-logo.png" alt="Septeo Tunisia" className="splash-logo-img" />
-        </div>
+      {/* ── Carte centrale avec bordure animée + tilt 3D ── */}
+      <div className="card-glow-ring">
+        <div
+          className="splash-content"
+          ref={cardRef}
+          onMouseMove={handleCardMove}
+          onMouseLeave={handleCardLeave}
+          style={{
+            transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+            transition: 'transform 0.18s ease-out',
+          }}
+        >
+          <div className="splash-logo-wrap">
+            <div className="splash-logo-ring" />
+            <div className="splash-logo-ring ring-2" />
+            <img src="/septeo-logo.png" alt="Septeo Tunisia" className="splash-logo-img" />
+          </div>
 
-        <div className="splash-divider">
-          <div className="splash-line" />
-          <span className="splash-diamond">◆</span>
-          <div className="splash-line" />
-        </div>
+          <div className="splash-divider">
+            <div className="splash-line" />
+            <span className="splash-diamond">◆</span>
+            <div className="splash-line" />
+          </div>
 
-        <div className="splash-welcome">
-          <p className="splash-sub">vous présente</p>
-          <h1 className="splash-title">
-            Bienvenue au
-            <br />
-            <span className="splash-event">Guinguette 2026</span>
-          </h1>
-        </div>
+          <div className="splash-welcome">
+            <p className="splash-sub">vous présente</p>
+            <h1 className="splash-title">
+              Bienvenue au
+              <br />
+              <span className="splash-event">
+                <TypewriterText text="Guinguette 2026" startDelay={1200} speed={70} />
+              </span>
+            </h1>
+          </div>
 
-        <button className="splash-enter-btn" onClick={handleEnter}>
-          Commencer l'aventure →
-        </button>
+          <button className="splash-enter-btn" onClick={handleEnter}>
+            Commencer l'aventure →
+          </button>
+        </div>
       </div>
 
       <PhotoStrip photos={RIGHT_PHOTOS} side="right" offset={rightOffset} />
+
+      <Ticker />
     </div>
   );
 }

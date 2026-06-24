@@ -1001,6 +1001,83 @@ html, body, #root {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* ─── MACHINE À ÉCRIRE ───────────────────────────────────────────── */
+.typewriter-cursor {
+  display: inline-block;
+  color: #FF5B27;
+  font-weight: 300;
+  animation: none;
+  margin-left: 1px;
+}
+
+/* ─── BORDURE GRADIENT ANIMÉE ────────────────────────────────────── */
+.card-glow-ring {
+  position: relative;
+  border-radius: 30px;
+  padding: 2px;
+  animation: splashFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  flex-shrink: 0;
+  width: 380px;
+  max-width: 90vw;
+}
+.card-glow-ring::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, #FF5B27 0%, #FFD700 22%, #7ECED9 44%, #9B8EC4 66%, #FF8C5A 88%, #FF5B27 100%);
+  background-size: 300% 300%;
+  animation: gradientBorderShift 5s ease infinite;
+  z-index: -1;
+  opacity: 0.75;
+}
+@keyframes gradientBorderShift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+/* ─── TICKER DÉFILANT ────────────────────────────────────────────── */
+.splash-ticker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: rgba(255, 91, 39, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 91, 39, 0.22);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 6;
+}
+.splash-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: tickerScroll 38s linear infinite;
+}
+.splash-ticker-item {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(26, 26, 46, 0.7);
+  padding: 0 4px;
+  letter-spacing: 0.3px;
+}
+.splash-ticker-sep {
+  margin: 0 20px;
+  color: #FF5B27;
+  opacity: 0.6;
+  font-size: 0.55rem;
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* ─── PROJECTEUR (SPOTLIGHT) ────────────────────────────────────── */
 .splash-spotlight {
   position: fixed;
@@ -1112,17 +1189,15 @@ html, body, #root {
   gap: 24px;
   z-index: 5;
   position: relative;
-  flex-shrink: 0;
-  animation: splashFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-  background: rgba(238,240,248,0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(238,240,248,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 28px;
   padding: 32px 44px;
-  border: 1px solid rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.9);
   box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.6) inset;
-  width: 380px;
-  max-width: 90vw;
+  width: 100%;
+  transform-style: preserve-3d;
 }
 @keyframes splashFadeUp {
   from { opacity: 0; transform: translateY(40px); }

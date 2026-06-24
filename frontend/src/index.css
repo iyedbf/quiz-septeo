@@ -1001,6 +1001,33 @@ html, body, #root {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* ─── LOGO GUINGUETTE ────────────────────────────────────────────── */
+.splash-logo-small {
+  width: 90px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  animation: splashFadeUp 0.6s ease 0.4s both;
+}
+.guinguette-logo-img {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(80,50,10,0.18));
+  animation: logoReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+.splash-date-line {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(61, 42, 26, 0.6);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 0;
+  animation: splashFadeUp 0.7s ease 1s both;
+}
+
 /* ─── MACHINE À ÉCRIRE ───────────────────────────────────────────── */
 .typewriter-cursor {
   display: inline-block;
@@ -1017,8 +1044,9 @@ html, body, #root {
   padding: 2px;
   animation: splashFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
   flex-shrink: 0;
-  width: 380px;
-  max-width: 90vw;
+  width: 420px;
+  max-width: 92vw;
+  z-index: 10;
 }
 .card-glow-ring::before {
   content: '';
@@ -1078,7 +1106,7 @@ html, body, #root {
   to   { transform: translateX(-50%); }
 }
 
-/* ─── JUNGLE DÉCOR ──────────────────────────────────────────────── */
+/* ─── JUNGLE DÉCOR (arrière-plan, z-index bas) ──────────────────── */
 
 /* Lianes du haut */
 .jungle-top {
@@ -1088,7 +1116,7 @@ html, body, #root {
   right: 0;
   height: 110px;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   background: linear-gradient(to bottom, rgba(50,90,15,0.14) 0%, transparent 100%);
   overflow: hidden;
 }
@@ -1113,7 +1141,7 @@ html, body, #root {
   right: 0;
   height: 140px;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 140' preserveAspectRatio='none'%3E%3Cpath d='M0%2C75 C80%2C38 160%2C92 240%2C60 C320%2C28 400%2C85 480%2C58 C560%2C31 640%2C78 720%2C52 C800%2C26 880%2C76 960%2C50 C1040%2C24 1120%2C72 1200%2C48 C1280%2C24 1360%2C72 1440%2C52 L1440%2C140 L0%2C140 Z' fill='%2378C03088'%2F%3E%3Cpath d='M0%2C95 C70%2C62 150%2C108 230%2C80 C310%2C52 390%2C102 470%2C76 C550%2C50 630%2C96 710%2C70 C790%2C44 870%2C94 950%2C68 C1030%2C42 1110%2C90 1190%2C65 C1270%2C40 1360%2C90 1440%2C70 L1440%2C140 L0%2C140 Z' fill='%235A9E2299'%2F%3E%3Cpath d='M0%2C115 C60%2C88 140%2C128 220%2C106 C300%2C84 380%2C126 460%2C104 C540%2C82 620%2C122 700%2C100 C780%2C78 860%2C118 940%2C97 C1020%2C76 1100%2C116 1180%2C95 C1260%2C74 1360%2C114 1440%2C96 L1440%2C140 L0%2C140 Z' fill='%23408018bb'%2F%3E%3C%2Fsvg%3E");
   background-size: 100% 100%;
@@ -1134,7 +1162,7 @@ html, body, #root {
 .jungle-side-item {
   position: fixed;
   pointer-events: none;
-  z-index: 3;
+  z-index: 1;
   user-select: none;
   animation: sideFloat 4.5s ease-in-out var(--delay) infinite alternate;
   filter: drop-shadow(0 6px 10px rgba(40,20,0,0.25));
@@ -1252,16 +1280,16 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
   z-index: 5;
   position: relative;
-  background: rgba(255, 248, 228, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 250, 232, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 28px;
-  padding: 32px 44px;
-  border: 1px solid rgba(255, 230, 150, 0.6);
-  box-shadow: 0 8px 40px rgba(100,70,20,0.10), 0 1px 0 rgba(255,255,255,0.7) inset;
+  padding: 28px 36px 32px;
+  border: 1px solid rgba(255, 230, 150, 0.55);
+  box-shadow: 0 12px 50px rgba(80,50,10,0.13), 0 1px 0 rgba(255,255,255,0.7) inset;
   width: 100%;
   transform-style: preserve-3d;
 }

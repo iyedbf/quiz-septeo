@@ -2,24 +2,50 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameContext } from '../App.jsx';
 import socket from '../socket.js';
+import { useGameSounds } from '../hooks/useGameSounds.js';
 
-const OPTION_COLORS = ['#FF5B27', '#7C3AED', '#059669', '#D97706'];
+const OPTION_COLORS = ['#C47A20', '#5A8A2A', '#7C3AED', '#1a6ea8'];
 const OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
 export default function QuizPage() {
   const navigate = useNavigate();
   const { gameState } = useContext(GameContext);
-  const [question, setQuestion] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [question, setQuestion]             = useState(null);
+  const [timeLeft, setTimeLeft]             = useState(15);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [correctIndex, setCorrectIndex] = useState(null);
-  const [showResult, setShowResult] = useState(false);
+  const [correctIndex, setCorrectIndex]     = useState(null);
+  const [showResult, setShowResult]         = useState(false);
   const [questionResults, setQuestionResults] = useState([]);
-  const [myScore, setMyScore] = useState(0);
-  const [pointsGained, setPointsGained] = useState(null);
-  const [phase, setPhase] = useState('loading');
-  const timerRef = useRef(null);
+  const [myScore, setMyScore]               = useState(0);
+  const [pointsGained, setPointsGained]     = useState(null);
+  const [phase, setPhase]                   = useState('loading');
+  const timerRef     = useRef(null);
   const startTimeRef = useRef(null);
+  const tickCountRef = useRef(0);
+
+  const {
+    muted, toggleMute,
+    tick, playCorrect, playWrong, playStart, playVictory,
+    startBg, stopBg,
+  } = useGameSounds();
+
+  /* ── Démarrer l'ambiance au montage ── */
+  useEffect(() => {
+    startBg();
+    return () => stopBg();
+  }, [startBg, stopBg]);
+
+  /* ── Tick-tock synchronisé sur timeLeft ── */
+  useEffect(() => {
+    if (phase !== 'question' || showResult) return;
+    const fast = timeLeft <= 3 && timeLeft > 0;
+    tick(fast);
+    if (fast && timeLeft > 1) {
+      // double-click urgent dans les 3 dernières secondes
+      const t = setTimeout(() => tick(true), fast ? 300 : 500);
+      return () => clearTimeout(t);
+    }
+  }, [timeLeft, phase, showResult, tick]);
 
   useEffect(() => {
     if (!gameState.roomCode) {
@@ -37,6 +63,8 @@ export default function QuizPage() {
       setTimeLeft(data.timeLimit);
       setPhase('question');
       startTimeRef.current = Date.now();
+      tickCountRef.current = 0;
+      playStart();
 
       if (timerRef.current) clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
@@ -50,7 +78,7 @@ export default function QuizPage() {
       }, 1000);
     });
 
-    socket.on('answer:confirmed', ({ answerIndex, isCorrect }) => {
+    socket.on('answer:confirmed', ({ answerIndex }) => {
       setSelectedAnswer(answerIndex);
       if (timerRef.current) clearInterval(timerRef.current);
     });
@@ -66,6 +94,11 @@ export default function QuizPage() {
       if (me) {
         setMyScore(me.score);
         setPointsGained(me.pointsGained);
+        if (me.correct) {
+          playCorrect();
+        } else {
+          playWrong();
+        }
       }
     });
 
@@ -75,7 +108,7 @@ export default function QuizPage() {
       socket.off('question:end');
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [navigate, gameState.roomCode]);
+  }, [navigate, gameState.roomCode, playStart, playCorrect, playWrong]);
 
   const handleAnswer = (index) => {
     if (selectedAnswer !== null || showResult) return;
@@ -93,7 +126,8 @@ export default function QuizPage() {
   };
 
   const timerPercent = question ? (timeLeft / question.timeLimit) * 100 : 100;
-  const timerColor = timeLeft > 7 ? '#22c55e' : timeLeft > 4 ? '#f59e0b' : '#ef4444';
+  const isUrgent     = timeLeft <= 3 && timeLeft > 0 && !showResult;
+  const timerColor   = timeLeft > 7 ? '#3a8a14' : timeLeft > 3 ? '#c47a20' : '#dc2626';
 
   if (phase === 'loading') {
     return (
@@ -108,19 +142,25 @@ export default function QuizPage() {
 
   return (
     <div className="quiz-page jungle-bg">
+
+      {/* ── Topbar ── */}
       <div className="quiz-topbar">
         <div className="quiz-level">
           <span>{question?.emoji}</span>
           <span>{question?.level}</span>
         </div>
         <div className="quiz-progress">
-          Question {(question?.questionIndex ?? 0) + 1} / {question?.totalQuestions}
+          Q {(question?.questionIndex ?? 0) + 1}/{question?.totalQuestions}
         </div>
-        <div className="quiz-score">
-          ⭐ {myScore} pts
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div className="quiz-score">⭐ {myScore} pts</div>
+          <button className="mute-btn" onClick={toggleMute} title={muted ? 'Activer le son' : 'Couper le son'}>
+            {muted ? '🔇' : '🔊'}
+          </button>
         </div>
       </div>
 
+      {/* ── Barre de timer ── */}
       <div className="timer-bar-wrapper">
         <div
           className="timer-bar"
@@ -132,11 +172,16 @@ export default function QuizPage() {
         />
       </div>
 
-      <div className="timer-display" style={{ color: timerColor }}>
+      {/* ── Chrono ── */}
+      <div
+        className={`timer-display ${isUrgent ? 'timer-urgent' : ''}`}
+        style={{ color: timerColor }}
+      >
         {showResult ? '⏱' : timeLeft}
         {!showResult && <span style={{ fontSize: '0.6em' }}>s</span>}
       </div>
 
+      {/* ── Contenu ── */}
       <div className="quiz-content">
         <div className="question-card">
           <p className="question-text">{question?.question}</p>

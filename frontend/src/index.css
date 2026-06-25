@@ -674,6 +674,26 @@ html, body, #root {
   50% { opacity: 0.4; transform: scale(0.7); }
 }
 
+/* ─── BOUTON MUTE ────────────────────────────────────────────────── */
+.mute-btn {
+  background: rgba(255,250,232,0.75);
+  border: 1.5px solid var(--j-border);
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--j-dark);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+}
+.mute-btn:hover {
+  background: linear-gradient(135deg, var(--j-brown), var(--j-gold));
+  color: #FFF8E8;
+  border-color: transparent;
+}
+
 /* ─── QUIZ PAGE ─────────────────────────────────────────────────── */
 .quiz-page {
   min-height: 100vh;
@@ -741,6 +761,15 @@ html, body, #root {
   padding: 8px 0;
   transition: color 0.3s;
   line-height: 1;
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 3px;
+}
+.timer-urgent {
+  animation: timerPulse 0.4s ease-in-out infinite alternate;
+}
+@keyframes timerPulse {
+  from { transform: scale(1);    opacity: 1;    }
+  to   { transform: scale(1.12); opacity: 0.85; }
 }
 
 .quiz-content {

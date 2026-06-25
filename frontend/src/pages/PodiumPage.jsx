@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameContext } from '../App.jsx';
 import socket from '../socket.js';
+import { useGameSounds } from '../hooks/useGameSounds.js';
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 const PODIUM_HEIGHTS = [180, 130, 100];
-const PODIUM_COLORS = ['#FF5B27', '#9B8EC4', '#7ECEDB'];
+const PODIUM_COLORS = ['#C47A20', '#9B8EC4', '#5A8A2A'];
 const PODIUM_POSITIONS = [1, 0, 2];
 
 export default function PodiumPage() {
@@ -13,6 +14,7 @@ export default function PodiumPage() {
   const { gameState } = useContext(GameContext);
   const [visible, setVisible] = useState(false);
   const [confetti, setConfetti] = useState([]);
+  const { muted, toggleMute, playVictory } = useGameSounds();
 
   const finalScores = gameState.finalScores || [];
 
@@ -23,13 +25,14 @@ export default function PodiumPage() {
     }
 
     setTimeout(() => setVisible(true), 100);
+    setTimeout(() => playVictory(), 600);
 
     const pieces = Array.from({ length: 60 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 3,
       size: Math.random() * 8 + 6,
-      color: ['#FF5B27', '#9B8EC4', '#7ECEDB', '#22c55e', '#f59e0b'][Math.floor(Math.random() * 5)],
+      color: ['#D4A843', '#9B8EC4', '#5A8A2A', '#C47A20', '#f59e0b'][Math.floor(Math.random() * 5)],
     }));
     setConfetti(pieces);
   }, []);
@@ -60,6 +63,9 @@ export default function PodiumPage() {
         <div className="podium-header">
           <h1 className="podium-title">🏆 Résultats Finaux</h1>
           <p className="podium-subtitle">Quiz SEPTEO — {finalScores.length} joueurs</p>
+          <button className="mute-btn" onClick={toggleMute} style={{ marginTop: 8 }}>
+            {muted ? '🔇 Son coupé' : '🔊 Son activé'}
+          </button>
         </div>
 
         {myEntry && (

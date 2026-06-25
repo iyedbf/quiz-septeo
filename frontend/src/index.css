@@ -794,6 +794,28 @@ html, body, #root {
   box-shadow: var(--j-shadow);
   border: 1.5px solid var(--j-border);
 }
+.question-image-wrap {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  border: 3px solid var(--j-border);
+  box-shadow: 0 6px 24px rgba(80,40,5,0.18);
+  position: relative;
+}
+.question-image {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  display: block;
+  border-radius: 11px;
+  animation: imgReveal 0.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes imgReveal {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
 .question-text {
   font-size: 1.2rem;
   font-weight: 700;

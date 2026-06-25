@@ -184,6 +184,15 @@ export default function QuizPage() {
       {/* ── Contenu ── */}
       <div className="quiz-content">
         <div className="question-card">
+          {question?.image && (
+            <div className="question-image-wrap">
+              <img
+                src={question.image}
+                alt="Indice visuel"
+                className="question-image"
+              />
+            </div>
+          )}
           <p className="question-text">{question?.question}</p>
         </div>
 

@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const BURST_COLORS = ['#D4A843', '#FFD700', '#5A8A2A', '#8B6914', '#FF8C5A', '#4ECDC4', '#fff', '#C17A1A'];
 
 const TICKER_ITEMS = [
-  '🌍 SEPTEO présent dans plus de 10 pays',
-  '👥 Plus de 3 000 collaborateurs',
-  '💻 Éditeur leader de logiciels SaaS métiers',
-  '⚖️ N°1 du logiciel notarial en France',
-  '🚀 Pionnier de la transformation numérique',
   '🏆 Guinguette 2026 — Soirée annuelle SEPTEO Tunisia',
   '✨ Merci d\'être là ce soir !',
   '🎊 Bonne soirée à tous !',

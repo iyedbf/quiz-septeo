@@ -11,6 +11,7 @@ export default function QuizPage() {
   const navigate = useNavigate();
   const { gameState } = useContext(GameContext);
   const [question, setQuestion]             = useState(null);
+  const [questionKey, setQuestionKey]       = useState(0);
   const [timeLeft, setTimeLeft]             = useState(15);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [correctIndex, setCorrectIndex]     = useState(null);
@@ -54,8 +55,9 @@ export default function QuizPage() {
     }
 
     socket.on('question:new', (data) => {
-      // Enlève le focus du bouton précédent pour éviter le hover persistant
+      // Reset complet des boutons pour éviter hover/focus persistant
       if (document.activeElement) document.activeElement.blur();
+      setQuestionKey(k => k + 1);
       setQuestion(data);
       setSelectedAnswer(null);
       setCorrectIndex(null);
@@ -198,7 +200,7 @@ export default function QuizPage() {
           <p className="question-text">{question?.question}</p>
         </div>
 
-        <div className={`options-grid ${question?.options?.length === 2 ? 'options-two' : 'options-four'}`}>
+        <div key={questionKey} className={`options-grid ${question?.options?.length === 2 ? 'options-two' : 'options-four'}`}>
           {question?.options.map((opt, i) => (
             <button
               key={i}

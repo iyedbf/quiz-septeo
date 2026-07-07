@@ -854,19 +854,22 @@ html, body, #root {
   text-align: left;
   position: relative;
 }
-.option-btn:hover:not(:disabled) {
-  border-color: var(--option-color);
-  background: rgba(255,250,232,1);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(80,40,5,0.15);
+@media (hover: hover) and (pointer: fine) {
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--option-color);
+    background: rgba(255,250,232,1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(80,40,5,0.15);
+  }
 }
 .option-btn:focus { outline: none; }
-.option-btn:focus:not(:hover):not(.option-selected):not(.option-correct):not(.option-wrong) {
-  border-color: rgba(139,90,26,0.18);
-  background: rgba(255,250,232,0.85);
-  transform: none;
-  box-shadow: none;
+.option-btn:focus:not(.option-selected):not(.option-correct):not(.option-wrong) {
+  border-color: rgba(139,90,26,0.18) !important;
+  background: rgba(255,250,232,0.85) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
+.option-btn { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .option-label {
   width: 32px; height: 32px;
   border-radius: 50%;

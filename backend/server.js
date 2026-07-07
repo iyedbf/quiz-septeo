@@ -43,7 +43,7 @@ const questions = [
   {
     id: 5, level: 'Facile', emoji: '🟢',
     question: "Quel est le cœur de métier de SEPTEO ?",
-    options: ["Fabrication de matériel informatique", "Développement de logiciels métiers", "Vente de téléphones", "Publicité"],
+    options: ["Fabrication de matériel informatique", "Développement de logiciels métiers", "Télécommunications", "Publicité"],
     correctIndex: 1, timeLimit: 15,
   },
   {
@@ -67,7 +67,7 @@ const questions = [
   {
     id: 9, level: 'Moyen', emoji: '🟡',
     question: "Que signifie la transformation digitale pour SEPTEO ?",
-    options: ["Utiliser uniquement le papier", "Accompagner les métiers grâce au numérique", "Vendre des ordinateurs", "Créer des jeux vidéo"],
+    options: ["Fournir des licences logiciels", "Accompagner les métiers grâce au numérique", "Développer des applications mobiles", "Créer des jeux vidéo"],
     correctIndex: 1, timeLimit: 15,
   },
   {
@@ -96,7 +96,7 @@ const questions = [
   {
     id: 13, level: 'Difficile', emoji: '🔴',
     question: "SEPTEO développe principalement :",
-    options: ["Des logiciels SaaS", "Des vêtements", "Des appareils médicaux", "Des voitures"],
+    options: ["Des logiciels SaaS", "Des services bancaires", "Des dossiers médicaux", "Des logiciels des voitures"],
     correctIndex: 0, timeLimit: 15,
   },
   {
@@ -108,7 +108,7 @@ const questions = [
   {
     id: 15, level: 'Difficile', emoji: '🔴',
     question: "Quel est l'objectif d'une innovation chez SEPTEO ?",
-    options: ["Rendre les métiers plus performants", "Créer plus de papier", "Remplacer les collaborateurs", "Vendre des télévisions"],
+    options: ["Rendre les métiers plus performants", "Créer plus de papier", "transformer les managers en hologrammes", "Faire des logiciels de jeux vidéo"],
     correctIndex: 0, timeLimit: 15,
   },
   {
@@ -126,14 +126,14 @@ const questions = [
   },
   {
     id: 18, level: 'Fun ⚡', emoji: '⚡',
-    question: "Vrai ou Faux : SEPTEO fabrique des smartphones.",
+    question: "Vrai ou Faux : Albert est un chtabot RH destiné a repondre aux questions sur les congés et la paie.",
     options: ["✅ Vrai", "❌ Faux"],
     correctIndex: 1, timeLimit: 10,
   },
   {
     id: 19, level: 'Fun ⚡', emoji: '⚡',
     question: "🔍 Quel est l'intrus parmi les clients de SEPTEO ?",
-    options: ["Notaires", "Avocats", "Immobilier", "Fast-food"],
+    options: ["Notaires", "Avocats", "Immobilier", "Transports"],
     correctIndex: 3, timeLimit: 10,
   },
   {

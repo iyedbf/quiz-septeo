@@ -54,6 +54,8 @@ export default function QuizPage() {
     }
 
     socket.on('question:new', (data) => {
+      // Enlève le focus du bouton précédent pour éviter le hover persistant
+      if (document.activeElement) document.activeElement.blur();
       setQuestion(data);
       setSelectedAnswer(null);
       setCorrectIndex(null);
